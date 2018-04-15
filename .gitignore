@@ -1,0 +1,8 @@
+.vagrant
+*.log
+*.txt
+
+devenv/proxy-1.3.6/acme.json
+
+app/
+traefik/
