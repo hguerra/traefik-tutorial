@@ -1,0 +1,39 @@
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
+
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+  [entryPoints.monitor]
+   address=":8080"
+   [entryPoints.monitor.auth]
+    [entryPoints.monitor.auth.basic]
+      users = [
+        "admin:$apr1$GA..KXSJ$SCN6lk4vLThxUlPAXugjn."
+      ]
+
+[api]
+entrypoint="monitor"
+
+[acme]
+email = "heitorgcarneiro@gmail.com"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+onDemand = false
+
+# CA server to use.
+# - Uncomment the line to run on the staging let's encrypt server.
+# - Leave comment to go to prod.
+#
+# Optional
+# Default: "https://acme-v01.api.letsencrypt.org/directory"
+#
+caServer = "https://acme-staging.api.letsencrypt.org/directory"
