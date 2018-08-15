@@ -1,0 +1,56 @@
+# File
+# doc: https://docs.traefik.io/configuration/backends/file/
+
+debug = true
+logLevel = "INFO"
+
+[traefikLog]
+  filePath = "D:/Development/traefik/devenv/file/log/traefik.log"
+  #format = "json"
+
+  [accessLog]
+    filePath = "D:/Development/traefik/devenv/file/log/access.log"
+    #format = "json"
+    
+    [accessLog.filters]
+      statusCodes = ["200", "300-302"]
+      retryAttempts = true
+
+defaultEntryPoints = ["http"]
+
+[entryPoints]
+
+  [entryPoints.http]
+    address = ":80"
+
+  [entryPoints.ping]
+    address=":8090"
+ 
+  [entryPoints.monitor]
+    address=":8091"
+
+[ping]
+  entryPoint = "ping"
+
+[api]
+  entrypoint="monitor"
+    [api.statistics]
+      recentErrors = 10
+
+[file]
+
+[backends]
+  [backends.backend1]
+    [backends.backend1.servers.server1]
+      url = "http://localhost:8081"
+      weight = 1
+
+    [backends.backend1.servers.server2]
+      url = "http://localhost:8082"
+      weight = 1
+
+[frontends]
+  [frontends.frontend1]
+    entryPoints = ["http"]
+    backend = "backend1"
+    rule = "Host:localhost"

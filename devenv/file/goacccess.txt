@@ -1,0 +1,3 @@
+https://github.com/allinurl/goaccess/issues/966
+
+goaccess access.log --log-format "%h %^ %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" %^ %v %^ %Lms" --date-format "%d/%b/%Y" --time-format "%H:%M:%S"
